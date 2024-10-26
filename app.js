@@ -36,3 +36,15 @@ function setupGame() {
     gameLoop = setInterval(moveSnake, speed);
     countdown();
 }
+
+function drawSnake() {
+    snake.forEach(index => squares[index].classList.add('snake'));
+}
+
+function drawFood() {
+    let randomIndex;
+    do {
+        randomIndex = Math.floor(Math.random() * totalCells);
+    } while (squares[randomIndex].classList.contains('snake'));
+    squares[randomIndex].classList.add('food');
+}
