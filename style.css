@@ -1,13 +1,14 @@
 body {
     text-align: center;
     margin: auto;
+    background-color: black;
+    color: antiquewhite;
 }
 
 .grid {
     display: grid;
     grid-template-rows: repeat(20, 20px);
     grid-template-columns: repeat(20, 20px);
-    gap: 1px;
     width: 420px;
     height: 420px;
     margin: auto;
@@ -16,11 +17,11 @@ body {
 .grid div {
     width: 20px;
     height: 20px;
-    background-color: whitesmoke;
+    background-color: gray;
 }
 
 .snake {
-    background-color: greenyellow;
+    background-color: #414141;
 }
 
 .food {
