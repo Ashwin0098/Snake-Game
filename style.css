@@ -2,7 +2,8 @@ body {
     text-align: center;
     margin: auto;
     background-color: black;
-    color: antiquewhite;
+    color: greenyellow;
+    display: center;
 }
 
 .grid {
@@ -12,6 +13,7 @@ body {
     width: 420px;
     height: 420px;
     margin: auto;
+    background-color: gray;
 }
 
 .grid div {
@@ -21,7 +23,7 @@ body {
 }
 
 .snake {
-    background-color: #414141;
+    background-color: green;
 }
 
 .food {

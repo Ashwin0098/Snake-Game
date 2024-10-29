@@ -17,16 +17,23 @@ const messageDisplay = document.getElementById('message');
 const timerDisplay = document.getElementById('timer');
 const resetButton = document.getElementById('Reset');
 
-for (let i =0; i<totalCells; i++) {
-    const cell = document.createElement('div');
-    gameBoard.appendChild(cell);
-}
+console.log("SNAKE GAME!");
+
+document.addEventListener("DOMContentLoaded", () => {
+    const gameBoard = document.getElementById('gameBoard');
+    for(let i = 0; i < totalCells; i++) {
+        const cell = document.createElement('div');
+        gameBoard.appendChild(cell);
+    }
+})
 cells = Array.from(document.querySelectorAll('.grid div'));
 
 function startGame() {
     timeInterval = setInterval(() => {
     }, 1000);
+    console.log("Countdown Starts");
 }
+
 function setupGame() {
     placeFood();
     timerDisplay.innerText = `Time: ${timer}`;
@@ -35,16 +42,21 @@ function setupGame() {
     document.addEventListener('keydown', changeDirection);
     gameLoop = setInterval(moveSnake, speed);
     countdown();
+    drawSnake();
+    drawFood();
+    console.log("Setup Game");
 }
 
 function drawSnake() {
-    snake.forEach(index => squares[index].classList.add('snake'));
+    snake.forEach(index => cells[index].classList.add('snake'));
+    console.log("Draw Snake");
 }
 
 function drawFood() {
     let randomIndex;
     do {
         randomIndex = Math.floor(Math.random() * totalCells);
-    } while (squares[randomIndex].classList.contains('snake'));
-    squares[randomIndex].classList.add('food');
+    } while (cells[randomIndex].classList.contains('snake'));
+    cells[randomIndex].classList.add('food');
+    console.log("Draw Food");
 }
