@@ -1,62 +1,76 @@
-let cells = Array.from(document.querySelectorAll('.grid div'));
+let grid = 20;
+let snake = [{x: 10, y: 10}];
+let food =  {x: 5, y: 5};
+let direction = 'right';
 let score = 0;
-let speed = 200;
-let timer = 60;
-let timeInterval;
-let gameLoop, foodIndex;
-let snake = [2, 1, 0];
-let direction = 1;
-let gameActive = true;
+let gameInterval;
 
-const boardSize = 20;
-const totalCells = boardSize * boardSize;
-const grid = document.querySelector('.grid');  
 const gameBoard = document.getElementById('gameBoard');
-const scoreDisplay = document.getElementById('scoreboard');
-const messageDisplay = document.getElementById('message'); 
-const timerDisplay = document.getElementById('timer');
-const resetButton = document.getElementById('Reset');
+const scoreboard = document.getElementById('scoreboard');
+const startButton = document.getElementById('start');
 
-console.log("SNAKE GAME!");
-
-document.addEventListener("DOMContentLoaded", () => {
-    const gameBoard = document.getElementById('gameBoard');
-    for(let i = 0; i < totalCells; i++) {
-        const cell = document.createElement('div');
-        gameBoard.appendChild(cell);
-    }
-})
-cells = Array.from(document.querySelectorAll('.grid div'));
+document.addEventListener('keydown', directionChange);
+startButton.addEventListener('click', startGame);
 
 function startGame() {
-    timeInterval = setInterval(() => {
-    }, 1000);
-    console.log("Countdown Starts");
+    snake = [{x: 10, y: 10}];
+    food = generateFood();
+    score = 0;
+    scoreboard.textContent = score;
+    clearInterval(gameInterval);
+    gameInterval = setInterval(snakeMove, 150);
+    startButton.disabled = true;
+    console.log("Game Start");
 }
 
-function setupGame() {
-    placeFood();
-    timerDisplay.innerText = `Time: ${timer}`;
-    scoreDisplay.innerText = `Score: ${score}`;
-    cells[snake[0]].classList.add('snake');
-    document.addEventListener('keydown', changeDirection);
-    gameLoop = setInterval(moveSnake, speed);
-    countdown();
-    drawSnake();
-    drawFood();
-    console.log("Setup Game");
+function snakeMove() {
+    const head = {...snake[0]};
+
+    switch(direction) {
+        case 'up': head.y--; break;
+        case 'down': head.y++; break;
+        case 'left': head.x--; break;
+        case 'right': head.x++; break;
+
+    }
+    if (isCollision(head) || head.x < 0 || head.y > 19 || head.y < 0 || head.y > 19) {
+        gameOver();
+        return;
+    }
+    snake.unshift(head);
+    if (head.x === food.x && head.y === food.y) {
+        score++;
+        scoreboard.textContent = score;
+        food = generateFood;
+    } else {
+        snake.pop();
+    }
+    updateGameBoard;
+    console.log("Snake Moves");
 }
 
-function drawSnake() {
-    snake.forEach(index => cells[index].classList.add('snake'));
-    console.log("Draw Snake");
+function directionChange(event) {
+    const keyPressed = event.key;
+    const oppositeDirections = {
+        'ArrowUp': 'down', 'ArrowDown': 'up', 'ArrowLeft': 'right', 'ArrowRight': 'left'
+    };
+    if (oppositeDirections[keyPressed] !== direction) {
+        switch(keyPressed) {
+            case 'ArrowUp': direction = 'up'; break;
+            case 'ArrowDown': direction = 'down'; break;
+            case 'ArrowLeft': direction = 'left'; break;
+            case 'ArrowRight': direction = 'right'; break;
+        }
+    }
 }
 
-function drawFood() {
-    let randomIndex;
+function generateFood() {
+    let newFood;
     do {
-        randomIndex = Math.floor(Math.random() * totalCells);
-    } while (cells[randomIndex].classList.contains('snake'));
-    cells[randomIndex].classList.add('food');
-    console.log("Draw Food");
+        newFood = {
+            x: Math.floor(Math.random() * 20),
+            y: Math.floor(Math.random() * 20),
+        };
+     } while  (isCollision(newFood));
+     return newFood;
 }
