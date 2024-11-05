@@ -1,40 +1,76 @@
-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    display: center;
+h1 {
+    font-size: 50px;
+    /* text-decoration: underline; */
     font-family: 'Times New Roman', Times, serif;
 }
 
-.grid {
-    display: flex;
-    grid-template-rows: repeat(20, 20px);
-    grid-template-columns: repeat(20, 20px);
-    width: 400px;
-    height: 400px;
-    margin: 0 auto;
-    background-color: gray;
-    /* border-radius: 5px;
-    border-color: black; */
+body {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh; */
+    margin: 0;
+    background-color: white;
+    text-align: center;
+}
+
+#message {
+    font-size: 24px;
+    margin-bottom: 5%;
+}
+
+#scoreboard {
+    margin-bottom: 2%;
+    font-size: 30px;
 }
 
 #gameboard {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
+    height: 500px;
+    width: 500px;
+    border: 2px;
+    border-radius: 5px;
+    border-color: black;
+    margin: 0 auto;
+    display: grid;
+    grid-template: repeat(20, 1fr) / repeat(20, 1fr);
+    background-color: gray;
 }
 
-.snake {
+.snakebody {
     background-color: green;
-    width: 20px;
-    height: 20px;
-    position: absolute;
+    border-color: 1px black;
+    border: 1px;
 }
 
 .food {
     background-color: red;
-    width: 20px;
-    height: 20px;
-    position: absolute;
+    border: 1px;
+    border-radius: 50%;
+}
+
+#startButton {
+    margin-top: 20px;
+    margin-right: 10px;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 50px;
+}
+
+#pauseButton {
+    margin-top: 20px;
+    margin-right: 5px;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 50px;
+}
+
+#resetButton {
+    margin-top: 20px;
+    margin-left: 10px;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 50px;
 }
